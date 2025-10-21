@@ -18,6 +18,9 @@ protected:
 };
 
 template <typename T>
+MatrizBase<T>* operator+(const MatrizBase<T>& left, const MatrizBase<T>& right);
+
+template <typename T>
 class MatrizDinamica : public MatrizBase<T> {
 private:
     T** _datos;
@@ -145,7 +148,7 @@ public:
     }
     
     void cargarValores() override {
-        std::cout << "Ingrese valores para matriz estatica " << this->_filas << "x" << this->_columnas << ":\n";
+        std::cout << "Valores para matriz estatica " << this->_filas << "x" << this->_columnas << ":\n";
         for (int i = 0; i < this->_filas; i++) {
             for (int j = 0; j < this->_columnas; j++) {
                 std::cout << "Posicion [" << i << "][" << j << "]: ";
@@ -188,14 +191,26 @@ public:
 int main() {
     MatrizDinamica<float> a(2,2);
     MatrizEstatica<float,2,2> b;
-
+    std::cout << "Suma en float:\n";
     a.cargarValores();
     b.cargarValores();
-
-    MatrizBase<float>* c = a.sumar(b);
+    
+    MatrizBase<float>* c = static_cast<const MatrizBase<float>&>(a) + static_cast<const MatrizBase<float>&>(b);
     if (c) {
         c->imprimir();
         delete c;
+    }
+
+    MatrizDinamica<int> ai(2,2);
+    MatrizEstatica<int,2,2> bi;
+    std::cout << "Suma en int:\n";
+    ai.cargarValores();
+    bi.cargarValores();
+    
+    MatrizBase<int>* ci = static_cast<const MatrizBase<int>&>(ai) + static_cast<const MatrizBase<int>&>(bi);
+    if (ci) {
+        ci->imprimir();
+        delete ci;
     }
 
     return 0;
