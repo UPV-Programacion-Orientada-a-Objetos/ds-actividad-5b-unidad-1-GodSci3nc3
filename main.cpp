@@ -56,7 +56,19 @@ public:
     }
     
     MatrizBase<T>* sumar(const MatrizBase<T>& otraMatriz) const override {
-        return nullptr;
+        if (this->_filas != otraMatriz._filas || this->_columnas != otraMatriz._columnas) {
+            return nullptr;
+        }
+        
+        MatrizDinamica<T>* resultado = new MatrizDinamica<T>(this->_filas, this->_columnas);
+        
+        for (int i = 0; i < this->_filas; i++) {
+            for (int j = 0; j < this->_columnas; j++) {
+                resultado->_datos[i][j] = this->_datos[i][j] + otraMatriz._datos[i][j];
+            }
+        }
+        
+        return resultado;
     }
 };
 
@@ -92,7 +104,19 @@ public:
     }
     
     MatrizBase<T>* sumar(const MatrizBase<T>& otraMatriz) const override {
-        return nullptr;
+        if (this->_filas != otraMatriz._filas || this->_columnas != otraMatriz._columnas) {
+            return nullptr;
+        }
+        
+        MatrizEstatica<T, M, N>* resultado = new MatrizEstatica<T, M, N>();
+        
+        for (int i = 0; i < this->_filas; i++) {
+            for (int j = 0; j < this->_columnas; j++) {
+                resultado->_datos[i][j] = this->_datos[i][j] + otraMatriz._datos[i][j];
+            }
+        }
+        
+        return resultado;
     }
 };
 
