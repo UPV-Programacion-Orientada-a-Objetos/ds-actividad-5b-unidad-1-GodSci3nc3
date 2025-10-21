@@ -18,7 +18,9 @@ protected:
 };
 
 template <typename T>
-MatrizBase<T>* operator+(const MatrizBase<T>& left, const MatrizBase<T>& right);
+MatrizBase<T>* operator+(const MatrizBase<T>& left, const MatrizBase<T>& right) {
+    return left.sumar(right);
+}
 
 template <typename T>
 class MatrizDinamica : public MatrizBase<T> {
@@ -195,7 +197,7 @@ int main() {
     a.cargarValores();
     b.cargarValores();
     
-    MatrizBase<float>* c = static_cast<const MatrizBase<float>&>(a) + static_cast<const MatrizBase<float>&>(b);
+    MatrizBase<float>* c = a + b;
     if (c) {
         c->imprimir();
         delete c;
@@ -207,7 +209,7 @@ int main() {
     ai.cargarValores();
     bi.cargarValores();
     
-    MatrizBase<int>* ci = static_cast<const MatrizBase<int>&>(ai) + static_cast<const MatrizBase<int>&>(bi);
+    MatrizBase<int>* ci = ai + bi;
     if (ci) {
         ci->imprimir();
         delete ci;
